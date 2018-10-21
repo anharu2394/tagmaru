@@ -47,6 +47,7 @@ GEM
     ffi (1.9.25)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    httpclient (2.8.3)
     i18n (1.1.1)
       concurrent-ruby (~> 1.0)
     listen (3.1.5)
@@ -123,6 +124,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  httpclient
   listen (>= 3.0.5, < 3.2)
   puma (~> 3.7)
   rails (~> 5.1.6)
