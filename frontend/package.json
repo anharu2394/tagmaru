@@ -25,7 +25,7 @@
     "react-dom": "^16.5.2"
   },
   "scripts": {
-    "build": "yarn run webpack",
+    "netlify": "npm run webpack",
     "start": "yarn install && yarn webpack-dev-server --mode development",
     "lint": "tslint --fix  ./src/*"
   }
