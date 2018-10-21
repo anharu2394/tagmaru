@@ -1,6 +1,9 @@
 import * as path from 'path';
 import { Configuration } from 'webpack';
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+
 const config: Configuration = {
   context: path.join(__dirname, 'src'),
   entry: './index.tsx',
@@ -20,6 +23,12 @@ const config: Configuration = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', 'jsx'],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+		  inlineSource: '.(js|css)$'
+	  }),
+    new HtmlWebpackInlineSourcePlugin()
+  ],
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     host: '0.0.0.0',
