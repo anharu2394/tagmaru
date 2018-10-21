@@ -2,7 +2,7 @@ version: '2'
 services:
   backend:
     build: ./backend/
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: rm tmp/pids/server.pid; bundle exec rails s -p 3000 -b '0.0.0.0'
     environment:
       RAILS_ENV: development
     ports:
