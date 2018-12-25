@@ -18,6 +18,10 @@ const config: Configuration = {
         test: /\.tsx?$/,
         use: 'awesome-typescript-loader',
       },
+      {
+        test: /\.html$/,
+        use: "html-loader"
+      }
     ],
   },
   resolve: {
@@ -25,6 +29,7 @@ const config: Configuration = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      template: "./index.html",
 		  inlineSource: '.(js|css)$'
 	  }),
     new HtmlWebpackInlineSourcePlugin()
