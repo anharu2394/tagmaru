@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "sourceMap": true,
     "baseUrl": "./",
     "target": "es5",
     "strict": true,
@@ -10,5 +11,5 @@
       "es6",
       "dom",
     ]
-  }
+  },
 }

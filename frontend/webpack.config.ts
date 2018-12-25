@@ -12,12 +12,10 @@ const config: Configuration = {
     filename: 'bundle.js',
     publicPath: '/',
   },
+  devtool: 'source-map',
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'awesome-typescript-loader',
-      },
+      { test: /\.tsx?$/, loader: "ts-loader" },
       {
         test: /\.html$/,
         use: "html-loader"
@@ -32,7 +30,7 @@ const config: Configuration = {
       template: "./index.html",
 		  inlineSource: '.(js|css)$'
 	  }),
-    new HtmlWebpackInlineSourcePlugin()
+    new HtmlWebpackInlineSourcePlugin(),
   ],
   devServer: {
     contentBase: path.join(__dirname, 'public'),
