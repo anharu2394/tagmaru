@@ -1,7 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import Tag from './components/tag';
+
+class App extends React.Component {
+  render() {
+    return (
+        <Tag />
+    );
+  }
+}
 
 ReactDOM.render(
-  <h1>Hello React with TypeScript!!!</h1>,
+  <App />,
   document.getElementById('app'),
 );
