@@ -2,13 +2,23 @@ version: '2'
 services:
   backend:
     build: ./backend/
-    command: rm tmp/pids/server.pid; bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: bash ./bin/start.sh
     environment:
-      RAILS_ENV: development
+      - "RAILS_ENV=development"
+      - DATABASE_HOST
+      - DATABASE_PORT
+      - DATABASE_USER
+      - DATABASE_PASSWORD
+      - TWITTER_KEY
+      - TWITTER_SECRET
     ports:
-      - '4000:3000'
+      - '4000:4000'
+    links:
+      - db
+    stdin_open: true
     volumes:
        - ./backend:/backend
+       - bundle:/backend/vendor/cache
   frontend:
     image: node:8.11
     working_dir: /frontend
@@ -19,7 +29,15 @@ services:
     volumes:
       - ./frontend:/frontend
       - node_modules:/frontend/node_modules
+  db:
+    image: postgres:10.1
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
 volumes:
   node_modules:
     driver: local
-
+  bundle:
+    driver: local
