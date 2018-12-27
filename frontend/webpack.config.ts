@@ -19,7 +19,18 @@ const config: Configuration = {
       {
         test: /\.html$/,
         use: "html-loader"
-      }
+      },
+      {
+        test: /\.css/,
+        use: [
+          'style-loader',
+          {loader: 'css-loader'},
+        ],
+      },
+      {
+        test: /\.(jpg|png|svg|gif)$/,
+        use: 'url-loader',
+      },
     ],
   },
   resolve: {
