@@ -1,12 +1,15 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { tagActions } from '../actions/tagActions';
+import { tagActions } from '../actions/tagAction';
 
 export interface Tag {
   id: number;
   name: string;
 }
 
-export type TagsState = Tag[];
-const initialState: TagsState = [];
+export interface TagsState { 
+  tags: Tag[];
+}
+
+const initialState: TagsState = {tags: []};
 
 export const tagsReducer = reducerWithInitialState(initialState);
