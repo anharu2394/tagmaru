@@ -1,16 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Tag from './components/tag';
+import { Provider } from 'react-redux';
+import Store from './store';
+import App from './App';
 
-class App extends React.Component {
-  render() {
-    return (
-        <Tag />
-    );
-  }
-}
+import './assets/css/normalize.css';
 
 ReactDOM.render(
-  <App />,
+  <Provider store={Store}>
+    <App />
+  </Provider>,
   document.getElementById('app'),
 );
