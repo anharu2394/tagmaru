@@ -1,8 +1,8 @@
 import { createStore, combineReducers } from 'redux';
-import { tagsReducer, tagsState } from './states/tagsState';
+import { tagsReducer, TagsState } from './states/tagsState';
 
 export type AppState = {
-  tags: tagsState
+  tags: TagsState
 } 
 
 const store = createStore(
