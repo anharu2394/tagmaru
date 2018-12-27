@@ -12,4 +12,7 @@
       "dom",
     ]
   },
+  "files": [
+     "@types/images.d.ts"
+  ]
 }
