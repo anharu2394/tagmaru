@@ -11,6 +11,7 @@ services:
       - DATABASE_PASSWORD
       - TWITTER_KEY
       - TWITTER_SECRET
+      - SECRET_KEY_BASE
     ports:
       - '4000:4000'
     links:
