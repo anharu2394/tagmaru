@@ -2,7 +2,7 @@ FROM nginx
 # Install dependencies
 RUN apt-get update -qq && apt-get -y install apache2-utils
 RUN apt-get update && \
-  apt-get install -y  letsencrypt
+  apt-get install -y  certbot
 # establish where Nginx should look for files
 ENV RAILS_ROOT /var/www/tagmaru
 # Set our working directory inside the image
