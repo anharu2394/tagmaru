@@ -26,7 +26,7 @@ module Tagmaru
     config.load_defaults 5.1
     config.middleware.use Rack::Cors do
       allow do
-        origins '127.0.0.1:4001', 'localhost:4001' 
+        origins 'tagmaru.me','127.0.0.1:4001', 'localhost:4001' 
         resource '*',
                  :headers => :any,
                  :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
