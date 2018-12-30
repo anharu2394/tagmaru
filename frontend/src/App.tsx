@@ -29,7 +29,7 @@ interface AppProps {
 class App extends React.Component<AppProps, {}> {
  	root = Function('return this')()
   openWindow = e => {
-   	this.root.open('http://127.0.0.1:4000/auth/twitter?auth_origin_url=http://127.0.0.1:4001/login/callback'); 
+   	this.root.open(process.env.NODE_ENV == 'development' ? 'http://127.0.0.1:4000/auth/twitter?auth_origin_url=http://127.0.0.1:4001/login/callback' :'https://api.tagmaru.me/auth/twitter?auth_origin_url=https://tagmaru.me/login/callback'); 
   }
   componentDidMount() {
     if (this.props.checkLogin) {
@@ -37,7 +37,6 @@ class App extends React.Component<AppProps, {}> {
     }
   }
   render() {
-    console.log(this.props)
     return (
       <div>
         <Header openWindow={this.openWindow} loggedIn={this.props.user.loggedIn}/>
