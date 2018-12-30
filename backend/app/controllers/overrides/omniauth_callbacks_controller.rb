@@ -14,8 +14,10 @@ module Overrides
 
       p @auth_params.as_json
       p @resource.as_json
-     # render_data_or_redirect('deliverCredentials', @auth_params.as_json, @resource.as_json)
-      head :ok, @auth_params
+      #render_data_or_redirect('deliverCredentials', @auth_params.as_json, @resource.as_json)
+      #render_data('deliverCredentials',@auth_params.as_json)
+      #head :ok, @auth_params
+      render_data_or_redirect('deliverCredentials', @auth_params.as_json, @resource.as_json)
      end
 
     def assign_provider_attrs(user, auth_hash)

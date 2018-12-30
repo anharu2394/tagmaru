@@ -1,22 +1,31 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import * as Logo from '../assets/images/logo.jpg';
+import * as Logo from '../assets/images/logo.png';
 import Button from '../shared/Button'
 import Image from '../shared/Image'
 import Container from '../shared/Container'
 import Flex from '../shared/Flex'
 import FlexChild from '../shared/FlexChild'
+import { Link } from 'react-router-dom';
 
-const Header: React.SFC = () => {
+interface HeaderProps {
+	openWindow: (any) => void;
+  loggedIn: boolean;
+}
+
+const Header: React.SFC<HeaderProps> = (props) => {
+  const LoginOrMypageButton :any = props.loggedIn ?  <Link to="/mypage"><Button marginTop="13" blue >マイページ</Button></Link> : <Button marginTop="13" blue onClick={props.openWindow}>ログイン</Button>
   return (
     <Wrapper>
       <Container>
         <Flex>
           <FlexChild>
-            <Image src={Logo} />
+            <Link to="/">
+              <Image src={Logo} />
+            </Link>
           </FlexChild>
           <FlexChild>
-            <Button marginTop="13" blue>ログイン</Button>
+            {LoginOrMypageButton}
           </FlexChild>
         </Flex>
       </Container>

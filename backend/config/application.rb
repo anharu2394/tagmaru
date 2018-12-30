@@ -24,13 +24,14 @@ module Tagmaru
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::Flash
     config.load_defaults 5.1
-    config.middleware.insert_before 0, Rack::Cors do
+    config.middleware.use Rack::Cors do
       allow do
-        origins '*'
+        origins '127.0.0.1:4001', 'localhost:4001' 
         resource '*',
                  :headers => :any,
                  :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-                 :methods => [:get, :post, :options, :delete, :put]
+                 :methods => [:get, :post, :options, :delete, :put],
+                 :credentials => true
       end
     end
 

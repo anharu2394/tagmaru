@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Section = styled.section`
-  display: flex;
+  padding: 30px;
 `;
 
 export default Section;

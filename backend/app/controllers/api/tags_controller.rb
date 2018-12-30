@@ -2,6 +2,10 @@ class Api::TagsController < ActionController::API
     before_action :authenticate_user!, except: [:search, :trend, :show]
     def following
         @tags = User.find(current_user.id).tags.map{ |t| t.attributes }
+        @tags.map! do |tag|
+          tag['following'] = true
+          tag
+        end
         render json: @tags
     end
 
@@ -22,7 +26,7 @@ class Api::TagsController < ActionController::API
     end
 
     def user_trend
-        @tags = Tag.first(20).map{ |t| t.attributes }
+        @tags = Tag.first(10).map{ |t| t.attributes }
         user_tags = current_user.tags.map{ |t| t.attributes }
         @tags.map do |tag|
             if user_tags.index(tag) == nil
@@ -35,12 +39,12 @@ class Api::TagsController < ActionController::API
     end
 
     def trend
-        @tags = Tag.first(20)
+        @tags = Tag.first(10)
         render json: @tags
     end
 
     def user_search
-        if params[:keyword]
+        if params[:keyword] && params[:keyword] != ""
             @tags = Tag.where(['name LIKE ?', "%#{params[:keyword]}%"]).map{ |t| t.attributes }
             user_tags = current_user.tags.map{ |t| t.attributes }
             @tags.map do |tag|
@@ -52,16 +56,16 @@ class Api::TagsController < ActionController::API
             end
             render json: @tags
         else
-            render json: @tags
+            render json: []
         end
     end
 
     def search
-        if params[:keyword]
+        if params[:keyword] && params[:keyword] != ""
             @tags = Tag.where(['name LIKE ?', "%#{params[:keyword]}%"])
             render json: @tags
         else
-            render json: @tags
+            render json: []
         end
     end
 end
