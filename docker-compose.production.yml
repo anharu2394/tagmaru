@@ -1,0 +1,32 @@
+version: '3'
+volumes:  
+  postgres_data: {} 
+services:  
+  backend:    
+    build:      
+      context: .      
+      dockerfile: ./backend/Dockerfile.prod    
+    environment:
+      - DATABASE_HOST
+      - DATABASE_PORT
+      - DATABASE_USER
+      - DATABASE_PASSWORD
+      - TWITTER_KEY
+      - TWITTER_SECRET
+    depends_on:      
+      - db  
+  db:    
+    image: postgres    
+    volumes:      
+      - postgres_data:/var/lib/postgresql/data  
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+  nginx:    
+    build:      
+      context: .      
+      dockerfile: ./nginx/Dockerfile  
+    depends_on:      
+      - backend 
+    ports:      
+      - 80:80
