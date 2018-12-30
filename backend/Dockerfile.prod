@@ -8,11 +8,13 @@ WORKDIR $RAILS_ROOT
 ENV RAILS_ENV='production'
 ENV RACK_ENV='production' 
 
-COPY backend/ .
+COPY backend/Gemfile Gemfile
+COPY backend/Gemfile.lock Gemfile.lock
+
 
 RUN bundle install --jobs 20 --retry 5 --without development test 
 
-COPY . .
+COPY backend/ .
 RUN bundle exec rake assets:precompile
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
