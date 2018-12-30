@@ -27,5 +27,10 @@ test:
   database: tagmaru_test
 
 production:
-  <<: *default
+  adapter: postgresql  
+  encoding: unicode  
+  username: postgres  
+  password:  
+  pool: 5  
+  host: db 
   database: tagmaru_production
