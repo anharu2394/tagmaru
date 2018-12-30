@@ -1,13 +1,14 @@
 FROM ruby:2.4.0
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
-ENV RAILS_ROOT /var/www/tagmaru/backend
+ENV RAILS_ROOT /var/www/tagmaru
 RUN mkdir -p $RAILS_ROOT 
 WORKDIR $RAILS_ROOT
 
 ENV RAILS_ENV='production'
 ENV RACK_ENV='production' 
 
+COPY backend/ .
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 
