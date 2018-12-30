@@ -8,8 +8,8 @@ WORKDIR $RAILS_ROOT
 ENV RAILS_ENV='production'
 ENV RACK_ENV='production' 
 
-COPY Gemfile Gemfile
-COPY Gemfile.lock Gemfile.lock
+COPY backend/Gemfile Gemfile
+COPY backend/Gemfile.lock Gemfile.lock
 
 RUN bundle install --jobs 20 --retry 5 --without development test 
 
