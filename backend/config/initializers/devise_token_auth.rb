@@ -44,7 +44,6 @@ DeviseTokenAuth.setup do |config|
                           :'uid' => 'uid',
                           :'token-type' => 'token-type' }
 
-  config.secret_key = ENV['SECRET_KEY_BASE']
   # By default, only Bearer Token authentication is implemented out of the box.
   # If, however, you wish to integrate with legacy Devise authentication, you can
   # do so by enabling this flag. NOTE: This feature is highly experimental!
