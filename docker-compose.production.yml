@@ -20,7 +20,6 @@ services:
     image: postgres    
     volumes:      
       - postgres_data:/var/lib/postgresql/data
-      - /etc/letsencrypt/:/etc/letsencrypt/
     expose:
       - 5432
   nginx:    
@@ -29,6 +28,9 @@ services:
       dockerfile: ./nginx/Dockerfile  
     depends_on:      
       - backend 
+    volumes:
+      - /etc/letsencrypt/:/etc/letsencrypt/
+      - /var/www/api.tagmaru.me:/var/www/api.tagmaru.me
     ports:      
       - 80:80
       - 443:443
