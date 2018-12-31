@@ -10,14 +10,14 @@ class Api::PostsController < ActionController::API
             render json: @posts  
         elsif params[:type] == "trend"
             @posts = Post.where(tag_id:tag_id, posted_at: Date.today - 5..Date.today).order("fab_count desc").uniq
-            render json: @posts
+            render json: @posts.first(20)
         else
             render json: []
         end
     end
     def trend
         @posts = Post.where(posted_at: Date.today - 5..Date.today).order("fab_count desc").limit(20).uniq
-        render json: @posts
+        render json: @posts.first(20)
     end
     def following
         @tags = current_user.tags
@@ -31,7 +31,7 @@ class Api::PostsController < ActionController::API
               @posts << post
             end
         end
-        render json: @posts
+        render json: @posts.first(20)
     end
 end
 

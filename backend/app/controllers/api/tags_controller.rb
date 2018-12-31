@@ -22,7 +22,7 @@ class Api::TagsController < ActionController::API
 
     def show
         @tag = Tag.find(params[:id])
-        render json: @tag
+        render json: @tag.first(20)
     end
 
     def user_trend
