@@ -17,7 +17,7 @@ class Api::PostsController < ActionController::API
     end
     def trend
         @posts = Post.where(posted_at: Date.today - 5..Date.today).order("fab_count desc").limit(20).uniq
-        render json: @posts.first(20)
+        render json: @posts
     end
     def following
         @tags = current_user.tags
