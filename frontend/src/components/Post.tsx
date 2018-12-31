@@ -7,7 +7,7 @@ const Post: React.SFC<PostProps> = (props: PostProps) => {
     case 'devto':
       return (
           <Wrapper>
-            <a href={props.url} target='_blank' >{props.title}</a>
+            <a href={'https://dev.to/' + props.url} target='_blank' >{props.title}</a>
             <p>👍{props.fab_count}</p>
             <p>{props.provider}から</p>
           </Wrapper>
