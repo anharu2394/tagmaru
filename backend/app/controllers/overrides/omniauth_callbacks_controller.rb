@@ -16,6 +16,7 @@ module Overrides
       p @resource.as_json
       render_data_or_redirect('deliverCredentials', @auth_params.as_json, @resource.as_json)
      end
+     protected
     def get_resource_from_auth_hash
       # find or create user by provider and provider uid
       @resource = resource_class.where(
