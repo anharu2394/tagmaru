@@ -19,7 +19,7 @@ class HomePosts extends React.Component<HomePostsProps & UserState,{}> {
   }
   handler(e) {
     const params = Object.assign({ keyword: e.target.value }, this.props.token) 
-    this.props.fetchLoggedSearchTags(params).then(() => console.log(this.props))
+    this.props.fetchLoggedSearchTags(params)
   }
   render() {
     return (

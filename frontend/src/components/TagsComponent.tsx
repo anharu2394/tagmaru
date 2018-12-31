@@ -20,7 +20,6 @@ export class TagsComponent extends React.Component<TagsProps,{}> {
       : null
   }
   render() {
-    console.log(this.props.followTags)
     return (
       <div>
         {

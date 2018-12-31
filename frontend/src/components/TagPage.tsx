@@ -16,7 +16,6 @@ export default class TagPage extends React.Component<TagPageProps,{}> {
     this.props.fetchNewPosts(this.props.id)
   }
   render() {
-    console.log(this.props)
     return (
       <Tabs>
         <h1>{this.props.tag.name}</h1>

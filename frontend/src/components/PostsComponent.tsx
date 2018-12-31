@@ -17,7 +17,6 @@ export default class PostsComponent extends React.Component<PostsProps>{
     : null
   }
   render() {
-    console.log(this.props)
     if ('trend' in this.props) {
       return (<div>
         {
