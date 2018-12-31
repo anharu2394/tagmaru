@@ -16,7 +16,7 @@ export class TagsComponent extends React.Component<TagsProps,{}> {
     ('trend' in this.props) ? this.props.loggedIn
       ? this.props.fetchLoggedTrendTags(this.props.token)
       : this.props.fetchTrendTags()
-      : ( 'follow' in this.props) ? this.props.fetchFollowTags(this.props.token).then(() => console.log(this.props))
+      : ( 'follow' in this.props) ? this.props.fetchFollowTags(this.props.token)
       : null
   }
   render() {
