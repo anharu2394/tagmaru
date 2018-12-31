@@ -3,13 +3,24 @@ import { Post as PostProps } from '../states/postsState'
 import styled from 'styled-components';
 
 const Post: React.SFC<PostProps> = (props: PostProps) => {
-  return (
-      <Wrapper>
-        <a href={props.url} >{props.title}</a>
-        <p>👍{props.fab_count}</p>
-        <p>{props.provider}から</p>
-      </Wrapper>
-  )
+  switch (props.provider) {
+    case 'devto':
+      return (
+          <Wrapper>
+            <a href={props.url} target='_blank' >{props.title}</a>
+            <p>👍{props.fab_count}</p>
+            <p>{props.provider}から</p>
+          </Wrapper>
+      )
+    default:
+      return (
+          <Wrapper>
+            <a href={props.url} target='_blank' >{props.title}</a>
+            <p>👍{props.fab_count}</p>
+            <p>{props.provider}から</p>
+          </Wrapper>
+      )
+  }
 }
 
 const Wrapper = styled.div`
