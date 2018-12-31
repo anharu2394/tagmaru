@@ -54,7 +54,7 @@ class Api::TagsController < ActionController::API
                     tag.store("following",true)
                 end
             end
-            render json: @tags
+            render json: @tags.first(20)
         else
             render json: []
         end
@@ -63,7 +63,7 @@ class Api::TagsController < ActionController::API
     def search
         if params[:keyword] && params[:keyword] != ""
             @tags = Tag.where(['name LIKE ?', "%#{params[:keyword]}%"])
-            render json: @tags
+            render json: @tags.first(20)
         else
             render json: []
         end
