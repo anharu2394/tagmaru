@@ -47,7 +47,7 @@
     "typescript-fsa-redux-thunk": "^2.0.0-beta.11"
   },
   "scripts": {
-    "build": "yarn run webpack",
+    "build": "yarn run webpack && cp _redirects public/",
     "start": "yarn install && yarn webpack-dev-server --mode development  --hot",
     "lint": "tslint --fix  ./src/*"
   }
