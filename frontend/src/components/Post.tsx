@@ -12,6 +12,14 @@ const Post: React.SFC<PostProps> = (props: PostProps) => {
             <p>{props.provider}から</p>
           </Wrapper>
       )
+    case 'qiita':
+      return (
+          <Wrapper>
+            <a href={'https://qiita.com/' + props.url} target='_blank' >{props.title}</a>
+            <p>👍{props.fab_count}</p>
+            <p>{props.provider}から</p>
+          </Wrapper>
+      )
     default:
       return (
           <Wrapper>
