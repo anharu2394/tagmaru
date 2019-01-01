@@ -10,7 +10,7 @@ const pc = require('../assets/images/tagmaru-pc.svg') as string;
 const About: React.SFC = () => {
   return (
     <div>
-      <h1><MoveImage src={Logo}/>はエンジニアのための情報収集を快適にするサービス</h1>
+      <h1>たぐまるはエンジニアのための情報収集を快適にするサービス</h1>
       <Section>
         <Flex flexWrap='wrap'>
           <Box width={[1,1/2]}>   
