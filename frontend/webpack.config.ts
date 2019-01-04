@@ -5,6 +5,7 @@ import SitemapPlugin from 'sitemap-webpack-plugin';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const SitemapPlugin = require('sitemap-webpack-plugin').default;
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const root = [''];
 const tagPaths = Array(499).fill(0).map((n, i) => '/tags/' + (i + 1).toString());
@@ -53,7 +54,11 @@ const config: Configuration = {
       lastMod: true,
       changeFreq: 'daily',
       priority: '0.4'
-    })
+    }),
+    new CopyWebpackPlugin([{
+      from: './assets/images',
+        to: 'assets/images'
+    }]),
   ],
   devServer: {
     contentBase: path.join(__dirname, 'public'),
