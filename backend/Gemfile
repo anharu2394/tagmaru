@@ -20,6 +20,7 @@ gem "loofah", ">= 2.2.3"
 gem 'httpclient'
 gem 'nokogiri'
 gem 'open_uri_redirections'
+gem 'whenever', :require => false
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
