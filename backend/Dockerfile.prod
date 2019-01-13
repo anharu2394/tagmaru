@@ -22,5 +22,5 @@ RUN apt-get install -y cron
 
 
 EXPOSE 3000
-CMD bash -c "bundle exec puma -C config/puma.rb && service cron restart"
+CMD bash -c "service cron restart && bundle exec puma -C config/puma.rb"
 
