@@ -20,8 +20,7 @@ COPY backend/ .
 RUN apt-get install -y cron
 # RUN bundle exec whenever  --update-crontab
 
-RUN service cron restart
 
 EXPOSE 3000
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+CMD bash -c "bundle exec puma -C config/puma.rb && service cron restart"
 
