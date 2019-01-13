@@ -14,10 +14,13 @@ COPY backend/Gemfile.lock Gemfile.lock
 
 RUN bundle install --jobs 20 --retry 5 --without development test 
 
+COPY backend/crontab /var/spool/cron/crontabs/root
 COPY backend/ .
 
 RUN apt-get install -y cron
-RUN bundle exec whenever  --update-crontab
+# RUN bundle exec whenever  --update-crontab
+
+RUN service cron restart
 
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

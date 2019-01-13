@@ -6,7 +6,13 @@ COPY Gemfile /backend/Gemfile
 COPY Gemfile.lock /backend/Gemfile.lock
 RUN gem install bundler -v "1.16.6"
 RUN bundle install
+
+COPY crontab /var/spool/cron/crontabs/root
+
 COPY . /backend
 
 RUN apt-get install -y cron
-RUN bundle exec whenever  --update-crontab
+
+RUN service cron restart
+
+# RUN bundle exec whenever  --update-crontab
