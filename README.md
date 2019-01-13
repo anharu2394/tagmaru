@@ -11,3 +11,7 @@ Rails API + React（完全分離） on Dockerに移行しました。
 フロントエンドどバックエンドを分離させることで、より設計が綺麗になったように思えます。
 
 サーバーが状態を持たないトークンの認証も良かったです。
+
+![たぐまる](https://i.imgur.com/h0LP66z.png)
+
+![たぐまる](https://i.imgur.com/ddP9W7Z.png)
