@@ -1,7 +1,6 @@
 PATH=/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+0 4 * * * /bin/bash -l -c 'cd /var/www/tagmaru && RAILS_ENV=production bundle exec rake post_save:qiita --silent >> log/crontab.log 2>&1'
 
-0 4 * * * /bin/bash -l -c 'cd /backend && RAILS_ENV=development bundle exec rake post_save:qiita --silent >> log/crontab.log 2>&1'
+0 4 * * * /bin/bash -l -c 'cd /var/www/tagmaru && RAILS_ENV=production bundle exec rake post_save:devto --silent >> log/crontab.log 2>&1'
 
-0 4 * * * /bin/bash -l -c 'cd /backend && RAILS_ENV=development bundle exec rake post_save:devto --silent >> log/crontab.log 2>&1'
-
-0 4 * * * /bin/bash -l -c 'cd /backend && RAILS_ENV=development bundle exec rake post_save:hateb --silent >> log/crontab.log 2>&1'
+0 4 * * * /bin/bash -l -c 'cd /var/www/tagmaru && RAILS_ENV=production bundle exec rake post_save:hateb --silent >> log/crontab.log 2>&1'
