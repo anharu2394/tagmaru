@@ -5,6 +5,7 @@ import PostsContainer from '../containers/postContainer'
 import { User } from '../states/userState';
 import { TagTitle } from './HomePosts'
 import Button from '../shared/Button'
+import {Helmet} from "react-helmet";
 
 interface MyPageProps {
   currentUser: User;
@@ -15,6 +16,9 @@ export default class MyPage extends React.Component<MyPageProps> {
   render() {
     return(
       <Flex flexWrap='wrap'>
+        <Helmet>
+          <title>{this.props.currentUser.name} さんのマイページ - たぐまる</title>
+        </Helmet>
         <Box width={[1,2/3,3/4]} >
           <h1>{this.props.currentUser.name}さんのページ</h1>
           <h2>おすすめ記事</h2>

@@ -3,6 +3,7 @@ import { TagPageActions } from '../containers/tagpageContainer'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { TagPageState } from '../states/tagpageState'
 import Post from './Post'
+import {Helmet} from "react-helmet";
 
 export interface PassedProps {
   id: number;
@@ -18,6 +19,9 @@ export default class TagPage extends React.Component<TagPageProps,{}> {
   render() {
     return (
       <Tabs>
+        <Helmet>
+          <title>{this.props.tag.name}の最新かつ人気な記事 - たぐまる</title>
+        </Helmet>
         <h1>{this.props.tag.name}</h1>
         <TabList>
           <Tab>Trend</Tab>
