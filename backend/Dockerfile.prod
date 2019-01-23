@@ -14,13 +14,15 @@ COPY backend/Gemfile.lock Gemfile.lock
 
 RUN bundle install --jobs 20 --retry 5 --without development test 
 
-COPY backend/crontab /var/spool/cron/crontabs/root
 COPY backend/ .
 
-RUN apt-get install -y cron
+RUN apt-get install -y busybox-static
 # RUN bundle exec whenever  --update-crontab
+ENV TZ=Asia/Tokyo
+
+COPY backend/crontab /var/spool/cron/crontabs/root
 
 
 EXPOSE 3000
-CMD bash -c "service cron restart && bundle exec puma -C config/puma.rb"
+CMD bash -c " busybox crond -l 2 -L /dev/stderr -f & bundle exec puma -C config/puma.rb"
 
