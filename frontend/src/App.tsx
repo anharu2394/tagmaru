@@ -18,6 +18,7 @@ import TagPage from './containers/tagpageContainer'
 import { Redirect } from 'react-router-dom';
 import Button from './shared/Button'
 import styled from 'styled-components'
+import ToggleButton from 'react-toggle-button'
 
 interface AppProps {
   login?:  (any) => Promise<any>;
