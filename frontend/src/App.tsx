@@ -18,6 +18,7 @@ import TagPage from './containers/tagpageContainer'
 import { Redirect } from 'react-router-dom';
 import Button from './shared/Button'
 import styled from 'styled-components'
+import ToggleButton from 'react-toggle-button'
 
 interface AppProps {
   login?:  (any) => Promise<any>;
@@ -51,12 +52,11 @@ class App extends React.Component<AppProps, {}> {
             (
               <div>
                 <About />
-                <h2>Twiiterで簡単にログインして、自分のきになるタグをフォローして見ましょう！</h2>
+                <h2>Twiiterで簡単にログインして、自分の気になるタグをフォローして見ましょう！</h2>
                 <FlexWrapper>
                   <Button blue onClick={this.openWindow}>Twitterで登録</Button>
                 </FlexWrapper>
                 <h2>タグを見てみよう！</h2>
-                <TagContainer trend />
                 <TagContainer trend />
                 <h2>トレンドの記事を見てみよう！</h2>
                 <PostContainer trend /> 
