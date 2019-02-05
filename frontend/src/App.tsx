@@ -52,7 +52,7 @@ class App extends React.Component<AppProps, {}> {
             (
               <div>
                 <About />
-                <h2>Twiiterで簡単にログインして、自分のきになるタグをフォローして見ましょう！</h2>
+                <h2>Twiiterで簡単にログインして、自分の気になるタグをフォローして見ましょう！</h2>
                 <FlexWrapper>
                   <Button blue onClick={this.openWindow}>Twitterで登録</Button>
                 </FlexWrapper>
