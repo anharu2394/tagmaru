@@ -58,7 +58,6 @@ class App extends React.Component<AppProps, {}> {
                 </FlexWrapper>
                 <h2>タグを見てみよう！</h2>
                 <TagContainer trend />
-                <TagContainer trend />
                 <h2>トレンドの記事を見てみよう！</h2>
                 <PostContainer trend /> 
               </div>
