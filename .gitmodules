@@ -1,0 +1,3 @@
+[submodule "twitter-bot"]
+	path = twitter-bot
+	url = https://github.com/anharu2394/tagmaru-twitter-bot.git
