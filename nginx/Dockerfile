@@ -1,7 +1,11 @@
 FROM nginx
 # Install dependencies
 RUN apt-get update -qq && apt-get -y install apache2-utils
-RUN apt-get install -y letsencrypt
+RUN apt-get install -y wget
+RUN cd ~/
+RUN wget https://dl.eff.org/certbot-auto
+RUN chmod a+x certbot-auto
+
 # establish where Nginx should look for files
 ENV RAILS_ROOT /var/www/tagmaru
 # Set our working directory inside the image
@@ -12,12 +16,12 @@ RUN mkdir log
 COPY ./backend/public public/
 # Copy Nginx config template
 COPY nginx/nginx.conf /tmp/docker.nginx
-# substitute variable references in the Nginx config template for real values from the environment 
+# substitute variable references in the Nginx config template for real values from the environment
 # put the final config in its place
 RUN envsubst '$RAILS_ROOT' < /tmp/docker.nginx > /etc/nginx/conf.d/default.conf
 
 RUN apt-get update && apt-get install -y cron
-RUN echo '00 0 * * 6 root /usr/bin/certbot renew >> /var/log/cron.log 2>&1' >> /etc/cron.d/certbot-cron
+RUN echo '00 0 * * 6 root ~/certbot-auto renew >> /var/log/cron.log 2>&1' >> /etc/cron.d/certbot-cron
 RUN chmod 0644 /etc/cron.d/certbot-cron
 RUN touch /var/log/cron.log
 
