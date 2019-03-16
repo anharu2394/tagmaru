@@ -1,11 +1,11 @@
 version: '3'
-volumes:  
-  postgres_data: {} 
-services:  
-  backend:    
-    build:      
-      context: .      
-      dockerfile: ./backend/Dockerfile.prod    
+volumes:
+  postgres_data: {}
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile.prod
     environment:
       - DATABASE_HOST
       - DATABASE_PORT
@@ -14,23 +14,25 @@ services:
       - TWITTER_KEY
       - TWITTER_SECRET
       - SECRET_KEY_BASE
-    depends_on:      
-      - db  
-  db:    
-    image: postgres    
-    volumes:      
+    depends_on:
+      - db
+  db:
+    image: postgres
+    volumes:
       - postgres_data:/var/lib/postgresql/data
     expose:
       - 5432
-  nginx:    
-    build:      
-      context: .      
-      dockerfile: ./nginx/Dockerfile  
-    depends_on:      
-      - backend 
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    depends_on:
+      - backend
     volumes:
       - /etc/letsencrypt/:/etc/letsencrypt/
       - /var/www/api.tagmaru.me:/var/www/api.tagmaru.me
-    ports:      
+    ports:
       - 80:80
       - 443:443
+  twitter-bot:
+    build: ./twitter-bot/
