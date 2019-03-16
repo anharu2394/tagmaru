@@ -2,7 +2,7 @@ services:
   - docker
 
 env:
-  - DOCKER_COMPOSE_VERSION=1.8.0
+  - DOCKER_COMPOSE_VERSION: 1.8.0
   - COMPOSE_FILE: docker-compose.production.yml
 
 before_install:
