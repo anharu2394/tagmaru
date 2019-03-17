@@ -18,8 +18,8 @@ services:
       - db
     stdin_open: true
     volumes:
-       - ./backend:/backend
-       - bundle:/backend/vendor/cache
+      - ./backend:/backend
+      - bundle:/backend/vendor/cache
   frontend:
     image: node:8.11
     working_dir: /frontend
@@ -37,6 +37,13 @@ services:
     environment:
       - POSTGRES_USER
       - POSTGRES_PASSWORD
+  twitter-bot:
+    build: ./twitter-bot/
+    environment:
+      - TWITTER_KEY
+      - TWITTER_SECRET
+      - ACCESS_TOKEN
+      - ACCESS_SECRET
 volumes:
   node_modules:
     driver: local
