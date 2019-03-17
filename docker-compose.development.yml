@@ -39,6 +39,11 @@ services:
       - POSTGRES_PASSWORD
   twitter-bot:
     build: ./twitter-bot/
+    environment:
+      - TWITTER_KEY
+      - TWITTER_SECRET
+      - ACCESS_TOKEN
+      - ACCESS_SECRET
 volumes:
   node_modules:
     driver: local
