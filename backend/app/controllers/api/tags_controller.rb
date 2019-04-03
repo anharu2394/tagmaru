@@ -45,7 +45,7 @@ class Api::TagsController < ActionController::API
 
     def user_search
         if params[:keyword] && params[:keyword] != ""
-            @tags = Tag.where(['name LIKE ?', "%#{params[:keyword]}%"]).map{ |t| t.attributes }
+            @tags = Tag.where(['name ILIKE ?', "%#{URI.decode(params[:keyword])}%"]).map{ |t| t.attributes }
             user_tags = current_user.tags.map{ |t| t.attributes }
             @tags.map do |tag|
                 if user_tags.index(tag) == nil
