@@ -18,6 +18,9 @@ const LinkWrapper = styled.div`
   display:table;
   text-align: center;
   margin-left: 30px;
+  @media (max-width: 550px){
+    display: none;
+  }
 `
 const CenterLink = styled.a`
   vertical-align: middle;
