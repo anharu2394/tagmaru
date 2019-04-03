@@ -21,7 +21,7 @@ class HomePosts extends React.Component<HomePostsProps & UserState,{}> {
     window.scrollTo(0, 0)
   }
   handler(e) {
-    const params = Object.assign({ keyword: e.target.value }, this.props.token)
+    const params = Object.assign({ keyword: encodeURIComponent(e.target.value) }, this.props.token)
     this.props.fetchLoggedSearchTags(params)
   }
   render() {
