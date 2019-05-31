@@ -6,7 +6,7 @@ class SaveDevtoPostsJob < ApplicationJob
         Tag.all.each do |tag|
             posts = devto(tag.name)
             posts.each do |post|
-                Post.create(title: post[:title], url: post[:url], fab_count: post[:fab_count], provider: post[:provider],posted_at:post[:posted_at], tag_id: tag.id)
+                Post.create(title: post[:title], url: post[:url], fab_count: post[:fab_count], image: post[:image], provider: post[:provider],posted_at:post[:posted_at], tag_id: tag.id)
             end
         end
         hash = Post.group(:url).having('count(*) >= 2').maximum(:id)
