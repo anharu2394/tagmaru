@@ -36,6 +36,10 @@ const Wrapper = styled.div`
   -webkit-box-shadow: 0 2px 3px hsla(0,0%,4%,.1), 0 0 0 1px hsla(0,0%,4%,.1);
   box-shadow: 0 2px 3px hsla(0,0%,4%,.1), 0 0 0 1px hsla(0,0%,4%,.1);
   margin: 30px 0;
-  padding: 20px;
+  padding: 20px 5px;
+`
+
+const Image = styled.img`
+  width: 100%;
 `
 export default Post;
