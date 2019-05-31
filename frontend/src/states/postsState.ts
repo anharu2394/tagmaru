@@ -5,6 +5,7 @@ export interface Post {
   id: number;
   title: string;
   url: string;
+  image: null | string;
   posted_at: string;
   fab_count: number;
   provider: string;

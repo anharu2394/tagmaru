@@ -59,7 +59,7 @@ class HomePosts extends React.Component<HomePostsProps & UserState,{}> {
 }
 
 const WrapperBox = styled(Box)`
-  padding: 0 30px;
+  padding: 5px;
 `
 export const TagTitle = styled.h3`
   background: rgb(182,208,232);

@@ -6,7 +6,7 @@ class SaveDevtoPostsJob < ApplicationJob
         Tag.all.each do |tag|
             posts = devto(tag.name)
             posts.each do |post|
-                Post.create(title: post[:title], url: post[:url], fab_count: post[:fab_count], provider: post[:provider],posted_at:post[:posted_at], tag_id: tag.id)
+                Post.create(title: post[:title], url: post[:url], fab_count: post[:fab_count], image: post[:image], provider: post[:provider],posted_at:post[:posted_at], tag_id: tag.id)
             end
         end
         hash = Post.group(:url).having('count(*) >= 2').maximum(:id)
@@ -25,12 +25,21 @@ class SaveDevtoPostsJob < ApplicationJob
                     title = node.css('div[@class="content"]/h3').inner_text.gsub(/(\r\n?|\n)/,"").strip
                     url = node.css('a[@class="small-pic-link-wrapper index-article-link"]').attribute("href").value
                     fab_count = node.css('span[@class="engagement-count-number"]').inner_text.to_i
-                    posted_str = node.css('h4/a').inner_text.split('・')[1]
+                    posted_str = node.css('time').inner_text
                     month_str = posted_str[0..2]
                     month = Date.parse(month_str).month
-                    day = posted_str[-2..-1].to_i
+                    day = posted_str.split(' ')[1].to_i
                     posted_at = Date.new(year,month,day)
-                    posts << {title: title, url: url, fab_count: fab_count, provider: "devto", posted_at: posted_at}
+                    
+                    # Get The image of OGP
+                    sleep 1
+                    page_doc = Nokogiri::HTML(open('https://dev.to' + url,{read_timeout: nil,allow_redirections: :all}),nil,"utf-8")
+                    puts 'https://dev.to' + url + 'にGetします'
+                    if page_doc.css("meta[property='og:image']").present?
+                      img = page_doc.css("meta[property='og:image']").first.attributes["content"].value
+                      p img
+                    end
+                    posts << {title: title, url: url, fab_count: fab_count, image: img, provider: "devto", posted_at: posted_at}
                 end
             rescue => e
                 puts "エラーが発生しました"
