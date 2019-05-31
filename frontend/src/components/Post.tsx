@@ -1,15 +1,23 @@
 import * as React from 'react';
 import { Post as PostProps } from '../states/postsState'
 import styled from 'styled-components';
+import { Flex, Box } from '@rebass/grid';
 
 const Post: React.SFC<PostProps> = (props: PostProps) => {
   switch (props.provider) {
     case 'devto':
       return (
           <Wrapper>
-            <a href={'https://dev.to/' + props.url} target='_blank' >{props.title}</a>
-            <p>👍{props.fab_count}</p>
-            <p>{props.provider}から</p>
+          <Flex>
+            <Box width={[2/3, 1/2, 1/2]} px={2}>
+              <a href={'https://dev.to/' + props.url} target='_blank' >{props.title}</a>
+              <p>👍{props.fab_count}</p>
+              <p>{props.provider}から</p>
+            </Box>
+            <Box width={[1/3, 1/2, 1/2]} px={2}>
+              <Image src={props.image} />
+            </Box>
+          </Flex>
           </Wrapper>
       )
     case 'qiita':
