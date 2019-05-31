@@ -30,7 +30,7 @@ interface AppProps {
 class App extends React.Component<AppProps, {}> {
  	root = Function('return this')()
   openWindow = e => {
-   	this.root.open(process.env.NODE_ENV == 'development' ? 'http://127.0.0.1:4000/auth/twitter?auth_origin_url=http://127.0.0.1:4001/login/callback' :'https://api.tagmaru.me/auth/twitter?auth_origin_url=https://tagmaru.me/login/callback'); 
+   	this.root.open(process.env.NODE_ENV == 'development' ? 'http://127.0.0.1:4000/auth/twitter?auth_origin_url=http://127.0.0.1:4001/login/callback' :'https://api.tagmaru.me/auth/twitter?auth_origin_url=https://tagmaru.me/login/callback');
   }
   componentDidMount() {
     if (this.props.checkLogin) {
@@ -43,7 +43,7 @@ class App extends React.Component<AppProps, {}> {
         <Header openWindow={this.openWindow} loggedIn={this.props.user.loggedIn}/>
         <Container>
           <Switch>
-            <Route exact path="/" render={() => this.props.user.loggedIn ? 
+            <Route exact path="/" render={() => this.props.user.loggedIn ?
             (
               <div>
                 <HomePosts />
@@ -59,7 +59,7 @@ class App extends React.Component<AppProps, {}> {
                 <h2>タグを見てみよう！</h2>
                 <TagContainer trend />
                 <h2>トレンドの記事を見てみよう！</h2>
-                <PostContainer trend /> 
+                <PostContainer trend />
               </div>
             )} />
             <Route exact path='/tags/:id' render={(match) => {
@@ -68,7 +68,7 @@ class App extends React.Component<AppProps, {}> {
             <Route exact path="/login/callback" render={(match) => (
               <LoginCallback match={match} login={this.props.login} />
             )} />
-            <Route exact path="/mypage" render={() => 
+            <Route exact path="/mypage" render={() =>
              this.props.user.loggedIn ? <MyPage  currentUser={this.props.user.currentUser} logout={this.props.logout} /> : <Redirect to='/' />
             } />
             <Route render={() => (<div>Miss 404</div>)} />
@@ -99,7 +99,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
         uid: localStorage.uid,
       }
       loginWorker(dispatch,token)
-    } 
+    }
   },
 })
 

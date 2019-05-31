@@ -38,6 +38,17 @@ const config: Configuration = {
         test: /\.(jpg|png|svg|gif)$/,
         use: 'url-loader',
       },
+      {
+        test: /\.ttf$/,
+        use: [
+          {
+            loader: 'ttf-loader',
+            options: {
+              name: './font/[hash].[ext]',
+            },
+          },
+        ]
+        },
     ],
   },
   resolve: {

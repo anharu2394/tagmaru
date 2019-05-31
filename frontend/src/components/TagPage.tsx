@@ -9,9 +9,10 @@ export interface PassedProps {
   id: number;
 }
 
-type TagPageProps = PassedProps & TagPageActions & TagPageState 
+type TagPageProps = PassedProps & TagPageActions & TagPageState
 export default class TagPage extends React.Component<TagPageProps,{}> {
   componentDidMount() {
+    window.scrollTo(0, 0)
     this.props.fetchTag(this.props.id)
     this.props.fetchTrendPosts(this.props.id)
     this.props.fetchNewPosts(this.props.id)
@@ -43,4 +44,4 @@ export default class TagPage extends React.Component<TagPageProps,{}> {
       </Tabs>
     )
   }
-} 
+}

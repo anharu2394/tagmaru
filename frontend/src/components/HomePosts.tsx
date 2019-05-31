@@ -7,9 +7,9 @@ import TagsContainer from '../containers/tagContainer'
 import { Flex, Box } from '@rebass/grid';
 import styled from 'styled-components';
 import { fetchLoggedSearchTagsWorker } from '../workers/tagsWorker'
-import { UserState } from '../states/userState' 
+import { UserState } from '../states/userState'
 
-interface HomePostsProps { 
+interface HomePostsProps {
   fetchLoggedSearchTags: (any) => Promise<any>;
 }
 class HomePosts extends React.Component<HomePostsProps & UserState,{}> {
@@ -17,8 +17,11 @@ class HomePosts extends React.Component<HomePostsProps & UserState,{}> {
     super(props)
     this.handler = this.handler.bind(this)
   }
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
   handler(e) {
-    const params = Object.assign({ keyword: e.target.value }, this.props.token) 
+    const params = Object.assign({ keyword: encodeURIComponent(e.target.value) }, this.props.token)
     this.props.fetchLoggedSearchTags(params)
   }
   render() {
