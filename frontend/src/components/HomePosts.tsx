@@ -8,11 +8,9 @@ import { Flex, Box } from '@rebass/grid';
 import styled from 'styled-components';
 import { fetchLoggedSearchTagsWorker } from '../workers/tagsWorker'
 import { UserState } from '../states/userState'
+import { PostActions, HomePostsState } from '../containers/HomePostsContainer'
 
-interface HomePostsProps {
-  fetchLoggedSearchTags: (any) => Promise<any>;
-}
-class HomePosts extends React.Component<HomePostsProps & UserState,{}> {
+class HomePosts extends React.Component<PostActions & HomePostsState,{}> {
   constructor(props) {
     super(props)
     this.handler = this.handler.bind(this)
@@ -80,8 +78,4 @@ const TextBox = styled.input`
   width: 100%;
 `
 
-const  mapStateToProps = (state) => Object.assign({},state.user);
-const  mapDispatchToProps = (dispatch) => ({
-    fetchLoggedSearchTags: (params) => fetchLoggedSearchTagsWorker(dispatch, params),
-})
-export default connect<UserState,{ fetchLoggedSearchTags: (any) => Promise<any>},{}>(mapStateToProps,mapDispatchToProps)(HomePosts)
+export default HomePosts;

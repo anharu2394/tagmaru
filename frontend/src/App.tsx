@@ -13,7 +13,7 @@ import { Route, Switch } from 'react-router'
 import LoginCallback from './components/LoginCallback'
 import MyPage from './components/MyPage'
 import { loginWorker } from './workers/userWorker'
-import HomePosts from './components/HomePosts'
+import HomePosts from './containers/HomePostsContainer'
 import TagPage from './containers/tagpageContainer'
 import { Redirect } from 'react-router-dom';
 import Button from './shared/Button'
