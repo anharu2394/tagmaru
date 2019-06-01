@@ -6,7 +6,7 @@ class SaveHatebPostsJob < ApplicationJob
         Tag.all.each do |tag|
             posts = hateb(tag.name)
             posts.each do |post|
-                Post.create(title: post[:title], url: post[:url], fab_count: post[:fab_count], posted_at: post[:posted_at], provider: post[:provider], tag_id: tag.id)
+              Post.create(title: post[:title], url: post[:url], fab_count: post[:fab_count], posted_at: post[:posted_at], provider: post[:provider], image: post[:image], tag_id: tag.id)
             end
         end
         hash = Post.group(:url).having('count(*) >= 2').maximum(:id)
@@ -30,8 +30,18 @@ class SaveHatebPostsJob < ApplicationJob
                     p posted_at_s
                     posted_at = Date.parse(posted_at_s)
                     fab_count = node.css('a[@class="js-keyboard-entry-page-openable"]').inner_text.split(" ")[0].to_i
+
+                    # Get The image of OGP
+                    sleep 1
+                    page_doc = Nokogiri::HTML(open(url,{read_timeout: nil,allow_redirections: :all}),nil,"utf-8")
+                    puts 'https://dev.to' + url + 'にGetします'
+                    if page_doc.css("meta[property='og:image']").present?
+                      img = page_doc.css("meta[property='og:image']").first.attributes["content"].value
+                      p img
+                    end
+
                     p posts
-                    posts << {title: title, url: url, fab_count: fab_count, posted_at: posted_at, provider: "hateb"}
+                    posts << {title: title, url: url, fab_count: fab_count, posted_at: posted_at, provider: "hateb", image: img}
                 end
             rescue => e
                 puts "エラーが発生しました"
