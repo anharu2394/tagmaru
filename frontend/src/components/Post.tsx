@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Post as PostProps } from '../states/postsState'
 import styled from 'styled-components';
 import { Flex, Box } from '@rebass/grid';
+import LazyLoad from 'react-lazyload';
 
 const Post: React.SFC<PostProps> = (props: PostProps) => {
   switch (props.provider) {
@@ -15,7 +16,9 @@ const Post: React.SFC<PostProps> = (props: PostProps) => {
               <p>{props.provider}から</p>
             </Box>
             <Box width={[1/3, 1/2, 1/2]} px={2}>
-              <Image src={props.image} />
+              <LazyLoad height={200} once>
+                <Image src={props.image} />
+              </LazyLoad>
             </Box>
           </Flex>
           </Wrapper>
@@ -30,7 +33,9 @@ const Post: React.SFC<PostProps> = (props: PostProps) => {
                 <p>{props.provider}から</p>
               </Box>
               <Box width={[1/3, 1/2, 1/2]} px={2}>
-                <Image src={props.image} />
+                <LazyLoad height={200} once>
+                  <Image src={props.image} />
+                </LazyLoad>
               </Box>
             </Flex>
           </Wrapper>
@@ -45,7 +50,9 @@ const Post: React.SFC<PostProps> = (props: PostProps) => {
                 <p>{props.provider}から</p>
               </Box>
               <Box width={[1/3, 1/2, 1/2]} px={2}>
-                <Image src={props.image} />
+                <LazyLoad height={200} once>
+                  <Image src={props.image} />
+                </LazyLoad>
               </Box>
             </Flex>
           </Wrapper>
