@@ -13,7 +13,8 @@ const Post: React.SFC<PostProps> = (props: PostProps) => {
             <Box width={[2/3, 1/2, 1/2]} px={2}>
               <a href={'https://dev.to/' + props.url} target='_blank' >{props.title}</a>
               <p>👍{props.fab_count}</p>
-              <p>{props.provider}から</p>
+              <Date>{props.posted_at}</Date>
+              <Prov>{props.provider}から</Prov>
             </Box>
             <Box width={[1/3, 1/2, 1/2]} px={2}>
               <LazyLoad height={200} once>
@@ -29,8 +30,8 @@ const Post: React.SFC<PostProps> = (props: PostProps) => {
             <Flex>
               <Box width={[2/3, 1/2, 1/2]} px={2}>
                 <a href={'https://qiita.com/' + props.url} target='_blank' >{props.title}</a>
-                <p>👍{props.fab_count}</p>
-                <p>{props.provider}から</p>
+                <Date>👍{props.fab_count}</Date>
+                <Prov>{props.provider}から</Prov>
               </Box>
               <Box width={[1/3, 1/2, 1/2]} px={2}>
                 <LazyLoad height={200} once>
@@ -46,8 +47,8 @@ const Post: React.SFC<PostProps> = (props: PostProps) => {
             <Flex>
               <Box width={[2/3, 1/2, 1/2]} px={2}>
                 <a href={props.url} target='_blank' >{props.title}</a>
-                <p>👍{props.fab_count}</p>
-                <p>{props.provider}から</p>
+                <Date>👍{props.fab_count}</Date>
+                <Prov>{props.provider}から</Prov>
               </Box>
               <Box width={[1/3, 1/2, 1/2]} px={2}>
                 <LazyLoad height={200} once>
@@ -70,5 +71,15 @@ const Wrapper = styled.div`
 
 const Image = styled.img`
   width: 100%;
+`
+
+const Date = styled.p`
+  font-size: 0.9rem;
+  color:  rgba(70,82,94,.8);
+`
+
+const Prov = styled.p`
+  font-size: 0.9rem;
+  color:  rgba(70,82,94,.8);
 `
 export default Post;

@@ -50,7 +50,7 @@ const Wrapper = styled.div`
   p {
     margin: 0;
     color: rgb(130,65,82);
-    font-size: 18px;
+    font-size: 1.3rem;
   }
   a {
     text-decoration:none;
