@@ -9,9 +9,10 @@ import Container from './shared/Container'
 import {userActions} from './actions/userAction'
 import { AppState } from './store'
 import { UserState } from './states/userState'
+import { PostsState } from './states/postsState'
 import { Route, Switch } from 'react-router'
 import LoginCallback from './components/LoginCallback'
-import MyPage from './components/MyPage'
+import MyPage from './containers/MyPageContainer'
 import { loginWorker } from './workers/userWorker'
 import HomePosts from './containers/HomePostsContainer'
 import TagPage from './containers/tagpageContainer'
@@ -69,7 +70,7 @@ class App extends React.Component<AppProps, {}> {
               <LoginCallback match={match} login={this.props.login} />
             )} />
             <Route exact path="/mypage" render={() =>
-             this.props.user.loggedIn ? <MyPage  currentUser={this.props.user.currentUser} logout={this.props.logout} /> : <Redirect to='/' />
+             this.props.user.loggedIn ? <MyPage /> : <Redirect to='/' />
             } />
             <Route render={() => (<div>Miss 404</div>)} />
           </Switch>
