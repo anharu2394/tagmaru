@@ -1,19 +1,21 @@
 import * as React from 'react';
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import TagContainer from './containers/tagContainer'
-import PostContainer from './containers/postContainer'
+import { TagsComponent } from './components/TagsComponent'
+import PostsComponent from './components/PostsComponent'
 import Header from './components/Header'
 import About from './components/About'
 import Container from './shared/Container'
 import {userActions} from './actions/userAction'
 import { AppState } from './store'
-import { UserState } from './states/userState'
+import { UserState, Token } from './states/userState'
 import { PostsState } from './states/postsState'
+import { TagsState } from './states/tagsState'
 import { Route, Switch } from 'react-router'
 import LoginCallback from './components/LoginCallback'
 import MyPage from './containers/MyPageContainer'
 import { loginWorker } from './workers/userWorker'
+import { fetchTrendTagsWorker, followTagWorker, unFollowTagWorker } from './workers/tagsWorker'
 import HomePosts from './containers/HomePostsContainer'
 import TagPage from './containers/tagpageContainer'
 import { Redirect } from 'react-router-dom';
@@ -21,17 +23,22 @@ import Button from './shared/Button'
 import styled from 'styled-components'
 import ToggleButton from 'react-toggle-button'
 import { fetchTrendPostsWorker } from './workers/postsWorker'
+import { FollowParams, SearchParams, tagActions } from './actions/tagAction';
 
 interface AppActions {
   login:  (token: any) => Promise<any>;
   logout:  () => void;
   checkLogin:  () => void;
   fetchTrendPosts: () => Promise<any>;
+  fetchTrendTags: (token: Token) => Promise<any>;
+  followTag: (params: FollowParams) => Promise<any>;
+  unFollowTag: (params: FollowParams) => Promise<any>;
 }
 
 interface AppComponentState {
   user: UserState;
   posts: PostsState;
+  tags: TagsState;
 }
 
 type AppProps = AppActions & AppComponentState; 
@@ -65,9 +72,9 @@ class App extends React.Component<AppProps, {}> {
                   <Button blue onClick={this.openWindow}>Twitterで登録</Button>
                 </FlexWrapper>
                 <h2>タグを見てみよう！</h2>
-                <TagContainer trend />
+                <TagsComponent tags={this.props.tags.trendTags} followTag={this.props.followTag} unFollowTag={this.props.unFollowTag} token={this.props.user.token} />
                 <h2>トレンドの記事を見てみよう！</h2>
-                <PostContainer posts={this.props.posts.trendPosts } />
+                <PostsComponent posts={this.props.posts.trendPosts } />
               </div>
             )} />
             <Route exact path='/tags/:id' render={(match) => {
@@ -110,11 +117,15 @@ const mapDispatchToProps = dispatch => ({
     }
   },
   fetchTrendPosts: () => fetchTrendPostsWorker(dispatch, {}),
+  fetchTrendTags: (token) => fetchTrendTagsWorker(dispatch,token),
+  followTag: (params) => followTagWorker(dispatch, params),
+  unFollowTag: (params) => unFollowTagWorker(dispatch, params),
 })
 
 const mapStateToProps = state => ({
   user: state.user,
   posts: state.posts,
+  tags: state.tags
 })
 
 export default connect<AppComponentState, AppActions>(mapStateToProps, mapDispatchToProps)(App)

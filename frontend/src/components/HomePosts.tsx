@@ -3,7 +3,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import '../assets/css/tabs.css';
 import PostsContainer from './PostsComponent';
-import TagsContainer from '../containers/tagContainer'
+import { TagsComponent } from './TagsComponent';
 import { Flex, Box } from '@rebass/grid';
 import styled from 'styled-components';
 import { fetchLoggedSearchTagsWorker } from '../workers/tagsWorker'
@@ -19,6 +19,9 @@ class HomePosts extends React.Component<PostActions & HomePostsState,{}> {
     window.scrollTo(0, 0);
     this.props.fetchTrendPosts();
     this.props.fetchTimelinePosts(this.props.user.token);
+    this.props.fetchLoggedSearchTags(this.props.user.token);
+    this.props.fetchLoggedTrendTags(this.props.user.token);
+    this.props.fetchFollowTags(this.props.user.token);
   }
   handler(e) {
     const params = Object.assign({ keyword: encodeURIComponent(e.target.value) }, this.props.user.token)
@@ -26,6 +29,9 @@ class HomePosts extends React.Component<PostActions & HomePostsState,{}> {
   }
   render() {
     const { trendPosts, timelinePosts } = this.props.posts
+    const { trendTags, followTags, searchTags } = this.props.tags
+    const { followTag, unFollowTag } = this.props
+    const token = this.props.user.token
     return (
       <Flex flexWrap='wrap'>
         <WrapperBox width={[1,2/3,3/4]} >
@@ -47,12 +53,12 @@ class HomePosts extends React.Component<PostActions & HomePostsState,{}> {
         </WrapperBox>
         <Box width={[1,1/3,1/4]}>
           <TagTitle>人気なタグ</TagTitle>
-          <TagsContainer trend />
+          <TagsComponent tags={trendTags} followTag={followTag} unFollowTag={unFollowTag} token={token}/>
           <TagTitle>フォロー中のタグ</TagTitle>
-          <TagsContainer follow />
+          <TagsComponent tags={followTags} followTag={followTag} unFollowTag={unFollowTag} token={token}/>
           <TagTitle>タグ検索 🔍</TagTitle>
           <TextBox type="text" placeholder='スクロールして結果を見る' onChange={this.handler} />
-          <TagsContainer />
+          <TagsComponent tags={searchTags} followTag={followTag} unFollowTag={unFollowTag} token={token}/>
         </Box>
       </Flex>
     )
