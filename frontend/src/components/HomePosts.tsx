@@ -2,29 +2,36 @@ import * as React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import '../assets/css/tabs.css';
-import PostsContainer from '../containers/postContainer'
-import TagsContainer from '../containers/tagContainer'
+import PostsContainer from './PostsComponent';
+import { TagsComponent } from './TagsComponent';
 import { Flex, Box } from '@rebass/grid';
 import styled from 'styled-components';
 import { fetchLoggedSearchTagsWorker } from '../workers/tagsWorker'
 import { UserState } from '../states/userState'
+import { PostActions, HomePostsState } from '../containers/HomePostsContainer'
 
-interface HomePostsProps {
-  fetchLoggedSearchTags: (any) => Promise<any>;
-}
-class HomePosts extends React.Component<HomePostsProps & UserState,{}> {
+class HomePosts extends React.Component<PostActions & HomePostsState,{}> {
   constructor(props) {
     super(props)
     this.handler = this.handler.bind(this)
   }
   componentDidMount() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
+    this.props.fetchTrendPosts();
+    this.props.fetchTimelinePosts(this.props.user.token);
+    this.props.fetchLoggedSearchTags(this.props.user.token);
+    this.props.fetchLoggedTrendTags(this.props.user.token);
+    this.props.fetchFollowTags(this.props.user.token);
   }
   handler(e) {
-    const params = Object.assign({ keyword: encodeURIComponent(e.target.value) }, this.props.token)
+    const params = Object.assign({ keyword: encodeURIComponent(e.target.value) }, this.props.user.token)
     this.props.fetchLoggedSearchTags(params)
   }
   render() {
+    const { trendPosts, timelinePosts } = this.props.posts
+    const { trendTags, followTags, searchTags } = this.props.tags
+    const { followTag, unFollowTag } = this.props
+    const token = this.props.user.token
     return (
       <Flex flexWrap='wrap'>
         <WrapperBox width={[1,2/3,3/4]} >
@@ -36,22 +43,22 @@ class HomePosts extends React.Component<HomePostsProps & UserState,{}> {
 
             <TabPanel>
               <h2>最新かつ人気のある記事を掲載しています！</h2>
-              <PostsContainer trend />
+              <PostsContainer posts={trendPosts} />
             </TabPanel>
             <TabPanel>
               <h2>フォローしてるタグに関する記事を掲載しています！</h2>
-              <PostsContainer timeline />
+              <PostsContainer posts={timelinePosts} />
             </TabPanel>
           </Tabs>
         </WrapperBox>
         <Box width={[1,1/3,1/4]}>
           <TagTitle>人気なタグ</TagTitle>
-          <TagsContainer trend />
+          <TagsComponent tags={trendTags} followTag={followTag} unFollowTag={unFollowTag} token={token}/>
           <TagTitle>フォロー中のタグ</TagTitle>
-          <TagsContainer follow />
+          <TagsComponent tags={followTags} followTag={followTag} unFollowTag={unFollowTag} token={token}/>
           <TagTitle>タグ検索 🔍</TagTitle>
           <TextBox type="text" placeholder='スクロールして結果を見る' onChange={this.handler} />
-          <TagsContainer search />
+          <TagsComponent tags={searchTags} followTag={followTag} unFollowTag={unFollowTag} token={token}/>
         </Box>
       </Flex>
     )
@@ -80,8 +87,4 @@ const TextBox = styled.input`
   width: 100%;
 `
 
-const  mapStateToProps = (state) => Object.assign({},state.user);
-const  mapDispatchToProps = (dispatch) => ({
-    fetchLoggedSearchTags: (params) => fetchLoggedSearchTagsWorker(dispatch, params),
-})
-export default connect<UserState,{ fetchLoggedSearchTags: (any) => Promise<any>},{}>(mapStateToProps,mapDispatchToProps)(HomePosts)
+export default HomePosts;

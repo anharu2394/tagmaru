@@ -12,7 +12,7 @@ const Button = styled.button`
   padding: 0 30px;
   color: ${(props: ButtonProps) => props.blue ? "#fff":"#555"};
   text-align: center;
-  font-size: 11px;
+  font-size: 0.7rem;
   font-weight: 600;
   line-height: 38px;
   letter-spacing: .1rem;
