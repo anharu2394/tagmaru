@@ -20,13 +20,21 @@ import { Redirect } from 'react-router-dom';
 import Button from './shared/Button'
 import styled from 'styled-components'
 import ToggleButton from 'react-toggle-button'
+import { fetchTrendPostsWorker } from './workers/postsWorker'
 
-interface AppProps {
-  login?:  (any) => Promise<any>;
-  logout?:  () => void;
-  checkLogin?:  () => Promise<any>;
-  user: UserState;
+interface AppActions {
+  login:  (token: any) => Promise<any>;
+  logout:  () => void;
+  checkLogin:  () => void;
+  fetchTrendPosts: () => Promise<any>;
 }
+
+interface AppComponentState {
+  user: UserState;
+  posts: PostsState;
+}
+
+type AppProps = AppActions & AppComponentState; 
 
 class App extends React.Component<AppProps, {}> {
  	root = Function('return this')()
@@ -34,9 +42,8 @@ class App extends React.Component<AppProps, {}> {
    	this.root.open(process.env.NODE_ENV == 'development' ? 'http://127.0.0.1:4000/auth/twitter?auth_origin_url=http://127.0.0.1:4001/login/callback' :'https://api.tagmaru.me/auth/twitter?auth_origin_url=https://tagmaru.me/login/callback');
   }
   componentDidMount() {
-    if (this.props.checkLogin) {
-      this.props.checkLogin()
-    }
+    this.props.checkLogin()
+    this.props.fetchTrendPosts();
   }
   render() {
     return (
@@ -60,7 +67,7 @@ class App extends React.Component<AppProps, {}> {
                 <h2>タグを見てみよう！</h2>
                 <TagContainer trend />
                 <h2>トレンドの記事を見てみよう！</h2>
-                <PostContainer trend />
+                <PostContainer posts={this.props.posts.trendPosts } />
               </div>
             )} />
             <Route exact path='/tags/:id' render={(match) => {
@@ -85,7 +92,7 @@ const FlexWrapper = styled.div`
   justify-content: center;
 `
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+const mapDispatchToProps = dispatch => ({
 	login: (token) => loginWorker(dispatch, token),
   logout: () => {
     dispatch(userActions.logout({}))
@@ -102,10 +109,12 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
       loginWorker(dispatch,token)
     }
   },
+  fetchTrendPosts: () => fetchTrendPostsWorker(dispatch, {}),
 })
 
-const mapStateToProps = (state: AppState) => ({
-   user: state.user
+const mapStateToProps = state => ({
+  user: state.user,
+  posts: state.posts,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect<AppComponentState, AppActions>(mapStateToProps, mapDispatchToProps)(App)
