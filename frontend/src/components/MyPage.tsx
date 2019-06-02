@@ -6,23 +6,24 @@ import { User } from '../states/userState';
 import { TagTitle } from './HomePosts'
 import Button from '../shared/Button'
 import {Helmet} from "react-helmet";
+import { MyPageActions, MyPageState } from '../containers/MyPageContainer';
 
-interface MyPageProps {
-  currentUser: User;
-  logout?: () => void;
-}
+type MyPageProps = MyPageActions & MyPageState;
 
 export default class MyPage extends React.Component<MyPageProps> {
+  componentDidMount() {
+    this.props.fetchTimelinePosts(this.props.user.token)
+  }
   render() {
     return(
       <Flex flexWrap='wrap'>
         <Helmet>
-          <title>{this.props.currentUser.name} さんのマイページ - たぐまる</title>
+          <title>{this.props.user.currentUser.name} さんのマイページ - たぐまる</title>
         </Helmet>
         <Box width={[1,2/3,3/4]} >
-          <h1>{this.props.currentUser.name}さんのページ</h1>
+          <h1>{this.props.user.currentUser.name}さんのページ</h1>
           <h2>おすすめ記事</h2>
-          <PostsContainer timeline />
+          <PostsContainer posts={this.props.posts.timelinePosts} />
         </Box>
         <Box width={[1,1/3,1/4]}>
           <TagTitle>フォロー中のタグ</TagTitle>
