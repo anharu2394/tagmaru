@@ -23,7 +23,7 @@ export const login = (token): Promise<UserState> => axios.get('/auth/validate_to
 		else {
 			return {
 				token: {},
-				currentUser: {},
+				currentUser: {id:0,name:"",nickname:"",image:""},
 				loggedIn: false,
 			}
 		}
