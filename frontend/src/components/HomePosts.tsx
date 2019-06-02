@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { connect } from 'react-redux';
 import '../assets/css/tabs.css';
-import PostsContainer from '../containers/postContainer'
+import PostsContainer from './PostsComponent';
 import TagsContainer from '../containers/tagContainer'
 import { Flex, Box } from '@rebass/grid';
 import styled from 'styled-components';
@@ -16,13 +16,16 @@ class HomePosts extends React.Component<PostActions & HomePostsState,{}> {
     this.handler = this.handler.bind(this)
   }
   componentDidMount() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
+    this.props.fetchTrendPosts();
+    this.props.fetchTimelinePosts(this.props.user.token);
   }
   handler(e) {
     const params = Object.assign({ keyword: encodeURIComponent(e.target.value) }, this.props.user.token)
     this.props.fetchLoggedSearchTags(params)
   }
   render() {
+    const { trendPosts, timelinePosts } = this.props.posts
     return (
       <Flex flexWrap='wrap'>
         <WrapperBox width={[1,2/3,3/4]} >
@@ -34,11 +37,11 @@ class HomePosts extends React.Component<PostActions & HomePostsState,{}> {
 
             <TabPanel>
               <h2>最新かつ人気のある記事を掲載しています！</h2>
-              <PostsContainer trend />
+              <PostsContainer posts={trendPosts} />
             </TabPanel>
             <TabPanel>
               <h2>フォローしてるタグに関する記事を掲載しています！</h2>
-              <PostsContainer timeline />
+              <PostsContainer posts={timelinePosts} />
             </TabPanel>
           </Tabs>
         </WrapperBox>
@@ -49,7 +52,7 @@ class HomePosts extends React.Component<PostActions & HomePostsState,{}> {
           <TagsContainer follow />
           <TagTitle>タグ検索 🔍</TagTitle>
           <TextBox type="text" placeholder='スクロールして結果を見る' onChange={this.handler} />
-          <TagsContainer search />
+          <TagsContainer />
         </Box>
       </Flex>
     )
