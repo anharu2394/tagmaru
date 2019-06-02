@@ -1,33 +1,26 @@
 import * as React from 'react';
-import { TagsState } from '../states/tagsState';
-import { UserState } from '../states/userState';
-import { TagActions } from '../containers/tagContainer';
-import Tag from './Tag'
+import { Tag } from '../states/tagsState';
+import { Token,UserState } from '../states/userState';
+import TagComponent from './Tag'
+import { FollowParams, SearchParams, tagActions } from '../actions/tagAction';
+
 export interface OwnProps {
-  trend?: boolean;
-  follow?: boolean;
-  search?: boolean
+  tags: Tag[];
+  followTag: (params: FollowParams) => Promise<any>;
+  unFollowTag: (params: FollowParams) => Promise<any>;
+  token: Token;
 }
 
-type TagsProps = OwnProps & TagsState & UserState& TagActions;
+type TagsProps = OwnProps;
 
 export class TagsComponent extends React.Component<TagsProps,{}> {
   componentDidMount() {
-    ('trend' in this.props) ? this.props.loggedIn
-      ? this.props.fetchLoggedTrendTags(this.props.token)
-      : this.props.fetchTrendTags()
-      : ( 'follow' in this.props) ? this.props.fetchFollowTags(this.props.token)
-      : null
   }
   render() {
     return (
       <div>
         {
-          ( ('trend' in this.props) ? this.props.trendTags 
-            : ('follow' in this.props) ? this.props.followTags 
-            : ('search' in this.props) ? this.props.searchTags
-            : []
-          ).map((tag) => (<Tag {...tag} key={tag.id} followTag={this.props.followTag} unFollowTag={this.props.unFollowTag} token={this.props.token} />))
+          this.props.tags.map((tag) => (<TagComponent {...tag} key={tag.id} followTag={this.props.followTag} unFollowTag={this.props.unFollowTag} token={this.props.token} />))
         }
       </div>
     );
