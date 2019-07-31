@@ -1,12 +1,13 @@
 # たぐまる - Tagmaru.me with Rails API + React on Docker
 
-## 前のたぐまる
+## 前のたぐまる prvious Tagmaru
+
 I`d developed Tagmaru using Webpacker.
 Front-End and Back-End(Web API) are **not** separated.
 
 前のたぐまるは、Rails + React であるものの、RailsのWebpackerというものを使用しており、色々不便に感じてきたました。WwbpackerはProductionビルドは6分ほどかかります。Webpackの設定も、素のWebpackの設定が使えないので、めんどくさかったです。
 
-## 今のたぐまる
+## 今のたぐまる　current Tagmaru
 I develop with Rails API + React.
 Front-End and Back-End(Web API) are separated.
 Tagmaru runs on Docker.
